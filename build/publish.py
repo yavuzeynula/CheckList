@@ -26,7 +26,7 @@ import updater  # noqa: E402
 
 RELEASE_REPO = f"{updater.GITHUB_OWNER}/{updater.GITHUB_REPO}"
 VENV_PY = os.path.join(ROOT, "build", "venv", "Scripts", "python.exe")
-TARAYICI = os.path.join(os.path.expanduser("~"), ".claude", "tools", "tedarik")  # pip-audit (projeden ayri)
+TARAYICI = os.path.join(os.path.expanduser("~"), "tools", "tedarik")  # pip-audit (projeden ayri)
 
 EXE_EMBEDDED = ("launcher.py", "license_client.py", "license_secret.txt",
                 "requirements.txt", "build/CheckList.spec", "build/installer.iss")
@@ -131,7 +131,7 @@ def temiz_ortam():
         return "pip check: paketler uyumsuz."
     tara = os.path.join(TARAYICI, "tara.py")
     if not os.path.isfile(tara):
-        return f"Acik tarayici yok: {tara} (kurulum: ~/.claude/tools/tedarik/BENIOKU.md)"
+        return f"Acik tarayici yok: {tara} (kurulum: ~/tools/tedarik/BENIOKU.md)"
     if _run([os.path.join(TARAYICI, "Scripts", "python.exe"), "-X", "utf8", tara, "--disable-pip", "-r", req]).returncode:
         return "Bilinen acik bulundu (yukarida)."
     if _run([VENV_PY, "-m", "pytest", "-q"]).returncode:
