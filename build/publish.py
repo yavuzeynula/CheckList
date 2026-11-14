@@ -1,7 +1,8 @@
 """Guncelleme gonder: src.zip (+ gerekirse kurulum) -> GitHub release.
 
-Kullanim:  python build/publish.py <surum> [not] [--full]
-  --full : EXE + kurulum dosyasini her durumda yeniden derle (ilk yayin).
+Kullanim:  python build/publish.py <surum> [not] [--full] [--deneme]
+  --full   : EXE + kurulum dosyasini her durumda yeniden derle (ilk yayin).
+  --deneme : derle + selftest, yayinlama (yayin hattini denemek icin).
 
 Sira: version.txt -> (gerekirse) EXE + setup derle -> src.zip -> SELFTEST
 (dagitilan EXE yeni src ile aciliyor mu) -> release -> git tag + push.
@@ -176,7 +177,8 @@ def main(argv):
         return 1
     version = argv[0].lstrip("v").strip()
     full = "--full" in argv
-    rest = [a for a in argv[1:] if a != "--full"]
+    deneme = "--deneme" in argv
+    rest = [a for a in argv[1:] if a not in ("--full", "--deneme")]
     notes = rest[0].strip() if rest else ""
 
     with open(os.path.join(SRC, "version.txt"), "w", encoding="utf-8") as f:
@@ -205,6 +207,9 @@ def main(argv):
         print("[HATA]", problem, "-- yayinlanmadi.")
         return 1
     print("Selftest gecti: dagitilan EXE yeni kodla aciliyor.")
+    if deneme:
+        print("[DENEME] Yayinlanmadi.")
+        return 0
 
     upload = [zip_path]
     setup_sha = None
