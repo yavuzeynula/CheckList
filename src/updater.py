@@ -36,7 +36,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 # === CONFIG ===
-GITHUB_OWNER = "yavuzzeynulat-cell"
+GITHUB_OWNER = "yavuzeynula"
 GITHUB_REPO = "CheckList"
 RELEASE_API = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest"
 ASSET_NAME = "src.zip"
